@@ -13,7 +13,7 @@ execute "get_key" do
 end
 
 execute "update sources" do
-	command "echo "deb https://artifacts.elastic.co/packages/6.x/apt stable main" | sudo tee -a /etc/apt/sources.list.d/elastic-6.x.list"
+	command "echo 'deb https://artifacts.elastic.co/packages/6.x/apt stable main' | sudo tee -a /etc/apt/sources.list.d/elastic-6.x.list"
 end
 
 execute "install_kibana" do
