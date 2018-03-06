@@ -9,47 +9,26 @@ execute "env_variable" do
 end
 
 execute "get_key" do
-	command "wget -qO - https://packages.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add -"
+	command "wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add -"
 end
 
 execute "update sources" do
-	command "echo 'deb http://packages.elastic.co/kibana/4.5/debian stable main' | sudo tee -a /etc/apt/sources.list"
+	command "echo "deb https://artifacts.elastic.co/packages/6.x/apt stable main" | sudo tee -a /etc/apt/sources.list.d/elastic-6.x.list"
 end
 
 execute "install_kibana" do
 	command "sudo apt-get update && sudo apt-get -y install kibana"
 end
 
-template '/opt/kibana/config/kibana.yml' do 
+template '/etc/kibana/kibana.yml' do 
 	source 'kibana.yml.erb'
  	mode  '0750'
 end
 
-execute "update_kibana" do
-	command "sudo update-rc.d kibana defaults 96 9"
+execute "auto_start_kibana" do
+	command "sudo /bin/systemctl daemon-reload && sudo /bin/systemctl enable kibana.service"
 end
 
 execute "start_kibana" do
-	command "sudo service kibana start"
-
+	command "sudo systemctl start kibana.service"
 end
-
-execute "install_nginx" do
-	command "sudo apt-get install nginx apache2-utils"
-end
-
-template '/etc/nginx/sites-available/default' do 
-	source 'default.erb'
- 	mode  '0750'
-end
-
-execute "start_nginx" do
-	command "sudo service nginx restart"
-end
-
-# service 'kibana' do 
-# 	action [:enable, :start]
-# end
-# # apt_update
-
-

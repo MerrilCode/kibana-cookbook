@@ -1,3 +1,3 @@
 # kibana
 
-TODO: Enter the cookbook description here.
+I have installed elasticsearch to check if kibana works
