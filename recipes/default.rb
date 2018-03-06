@@ -22,13 +22,14 @@ end
 
 template '/etc/kibana/kibana.yml' do 
 	source 'kibana.yml.erb'
- 	mode  '0750'
+ 	mode  '0666'
 end
 
 execute "auto_start_kibana" do
 	command "sudo /bin/systemctl daemon-reload && sudo /bin/systemctl enable kibana.service"
 end
 
-execute "start_kibana" do
+execute "start_k
+ibana" do
 	command "sudo systemctl start kibana.service"
 end
