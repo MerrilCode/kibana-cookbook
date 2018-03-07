@@ -5,7 +5,7 @@ This repo is a Chef cookbook to install _kibana_ on a machine.
 
 ## Installation
 
-### Pre requisites
+### Pre-requisites
 To begin, download the following programs and install them:
 
 [Virtual Box](https://www.virtualbox.org/wiki/Downloads)
